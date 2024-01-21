@@ -14,47 +14,52 @@
 					<h3 class="mb-7">{{ $t("Trip Information") }}</h3>
 					<form>
 						<div class="form__group">
-							<CusLabel :text="$t('Client Name')" isRequired />
-							<CusInput :placeholder="$t('Insert name')" />
-						</div>
-						<div class="form__group">
-							<CusLabel :text="$t('Departure date')" isRequired />
-							<CusInput :type="'date'" />
-						</div>
-						<div class="form__group">
-							<CusSearch
-								:label="$t('Destination address')"
-								:placeholder="$t('Search address')"
+							<CusInput
+								:id="'client-name-input'"
+								:label="$t('Client Name')"
+								:placeholder="$t('Insert name')"
 								required
+								v-model="tripForm.clientName"
 							/>
 						</div>
 						<div class="form__group">
-							<CusLabel :text="$t('Cargo details')" />
 							<CusInput
+								:id="'departure-date-input'"
+								:type="'date'"
+								:label="$t('Departure date')"
+								isRequired
+								v-model="tripForm.departureDate"
+							/>
+						</div>
+						<div class="form__group">
+							<CusSearch
+								:id="'search-address-input'"
+								:label="$t('Destination address')"
+								:placeholder="$t('Search address')"
+								:isLoadingResults="isLoadingPlaces"
+								:itemsResults="places"
+								required
+								v-model="searchTerm"
+								@itemSelected="handlePlaceSelected"
+							/>
+						</div>
+						<div class="form__group">
+							<CusInput
+								:id="'cargo-details-input'"
+								:label="$t('Cargo details')"
 								:placeholder="$t('Insert details')"
 								type="textarea"
+								v-model="tripForm.cargoDetails"
 							/>
 						</div>
 					</form>
 				</template>
 			</CusCard>
 			<div>
-				<CusMap />
+				<CusMap :location="placeSelected?.location" />
 			</div>
 		</div>
 	</div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue"
-import CusMap from "uiLibrary/CusMap.vue"
-import CusSearch from "uiLibrary/CusSearch.vue"
-
-export default defineComponent({
-	name: "ManageTrip",
-	components: {
-		CusMap,
-		CusSearch,
-	},
-})
-</script>
+<script lang="ts" src="./ManageTrip.ts"></script>

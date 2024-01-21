@@ -1,7 +1,10 @@
 const { ModuleFederationPlugin } = require("webpack").container
 
 module.exports = {
-	publicPath: "http://localhost:8082",
+	publicPath: process.env.VUE_APP_PUBLIC_PATH || "/",
+	devServer: {
+		hot: false,
+	},
 	configureWebpack: {
 		plugins: [
 			new ModuleFederationPlugin({
