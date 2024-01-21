@@ -42,3 +42,8 @@ export interface Properties {
 	category?: string
 	accuracy?: string
 }
+
+export interface MapLocation {
+	lat: number
+	lng: number
+}

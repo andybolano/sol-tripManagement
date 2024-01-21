@@ -19,13 +19,18 @@ export default defineComponent({
 
 		const tripForm: Ref<TripForm> = ref({
 			clientName: "",
-			address: "",
+			address: {
+				name: "",
+				location: {
+					lat: 0,
+					lng: 0,
+				},
+			},
 			departureDate: "",
 			cargoDetails: "",
 		})
 
 		const places = ref<ItemPlaceSearchList[]>([])
-		const placeSelected = ref<ItemPlaceSearchList>()
 
 		const searchTerm = computed({
 			get() {
@@ -40,6 +45,7 @@ export default defineComponent({
 				}, 500)
 			},
 		})
+		//TODO improve this composable, why ??
 
 		const getPlacesByAddress = async (val: string): Promise<void> => {
 			try {
@@ -62,8 +68,11 @@ export default defineComponent({
 		}
 
 		const handlePlaceSelected = (place: ItemPlaceSearchList): void => {
-			placeSelected.value = place
-			tripForm.value.address = place.name
+			tripForm.value.address = place
+		}
+
+		const createTrip = (): void => {
+			//TODO look. click.self property
 		}
 
 		return {
@@ -71,8 +80,8 @@ export default defineComponent({
 			searchTerm,
 			isLoadingPlaces,
 			places,
-			placeSelected,
 			handlePlaceSelected,
+			createTrip,
 		}
 	},
 })

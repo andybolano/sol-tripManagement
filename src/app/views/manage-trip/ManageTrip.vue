@@ -4,7 +4,7 @@
 			<h1>{{ $t("Create new trip") }}</h1>
 		</template>
 		<template #options>
-			<CusButton :value="$t('Create')" />
+			<CusButton :value="$t('Create')" @click="createTrip()" />
 		</template>
 	</CusHeader>
 	<div class="container">
@@ -56,7 +56,7 @@
 				</template>
 			</CusCard>
 			<div>
-				<CusMap :location="placeSelected?.location" />
+				<CusMap :location="tripForm.address.location" />
 			</div>
 		</div>
 	</div>
