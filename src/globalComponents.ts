@@ -1,9 +1,10 @@
 import { App } from "vue"
-import CusCard from "uiLibrary/CusCard.vue"
-import CusLabel from "uiLibrary/CusLabel.vue"
-import CusButton from "uiLibrary/CusButton.vue"
-import CusInput from "uiLibrary/CusInput.vue"
-import CusHeader from "uiLibrary/CusHeader.vue"
+import CusCard from "sharedLibrary/CusCard.vue"
+import CusLabel from "sharedLibrary/CusLabel.vue"
+import CusButton from "sharedLibrary/CusButton.vue"
+import CusInput from "sharedLibrary/CusInput.vue"
+import CusHeader from "sharedLibrary/CusHeader.vue"
+import CusTable from "sharedLibrary/CusTable.vue"
 
 export default {
 	install(app: App): void {
@@ -12,5 +13,6 @@ export default {
 		app.component("CusButton", CusButton)
 		app.component("CusInput", CusInput)
 		app.component("CusHeader", CusHeader)
+		app.component("CusTable", CusTable)
 	},
 }

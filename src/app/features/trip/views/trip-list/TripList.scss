@@ -1,0 +1,12 @@
+.address {
+	max-width: 240px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+i {
+	cursor: pointer;
+	color: var(--secondaryColor);
+	font-size: 1.4rem;
+}

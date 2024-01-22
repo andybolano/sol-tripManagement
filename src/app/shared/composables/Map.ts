@@ -1,5 +1,5 @@
-import { httpClientMap } from "uiLibrary/apiClient"
-import { MapboxPlaces } from "../interfaces/Mapbox"
+import { httpClientMap } from "sharedLibrary/apiClient"
+import type { MapboxPlaces } from "../interfaces/Mapbox"
 
 const useMap = () => {
 	//TODO: validate why 401

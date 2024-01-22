@@ -1,6 +1,7 @@
 import { MapLocation } from "./Mapbox"
 
-export interface TripForm {
+export interface Trip {
+	id: string
 	clientName: string
 	address: {
 		name: string

@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
 		name: "trip-list",
 		component: () =>
 			import(
-				/* webpackChunkName: "TripList" */ "../app/views/trip-list/TripList.vue"
+				/* webpackChunkName: "TripList" */ "../app/features/trip/views/trip-list/TripList.vue"
 			),
 	},
 	{
@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
 		name: "trip-management",
 		component: () =>
 			import(
-				/* webpackChunkName: "TripList" */ "../app/views/manage-trip/ManageTrip.vue"
+				/* webpackChunkName: "TripList" */ "../app/features/trip/views/manage-trip/ManageTrip.vue"
 			),
 	},
 	{

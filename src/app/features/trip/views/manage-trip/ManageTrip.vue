@@ -1,14 +1,34 @@
 <template>
 	<CusHeader>
 		<template #title>
-			<h1>{{ $t("Create new trip") }}</h1>
+			<h1>
+				{{ titlePage }}
+			</h1>
 		</template>
 		<template #options>
-			<CusButton :value="$t('Create')" @click="createTrip()" />
+			<CusButton
+				class="mr-6"
+				:value="$t('Back')"
+				@click="cancel()"
+				:type="'secondary'"
+			/>
+			<CusButton
+				v-if="isEditTrip"
+				:value="$t('Save Changes')"
+				:disabled="validate$.$invalid"
+				@click="saveChanges()"
+			/>
+			<CusButton
+				v-else
+				:value="$t('Create')"
+				:disabled="validate$.$invalid"
+				@click="createTrip()"
+			/>
 		</template>
 	</CusHeader>
 	<div class="container">
 		<div class="w-full flex">
+			<!--TODO add error boundary https://medium.com/@alpercitak/enhancing-vue-js-performance-strategies-for-optimal-user-experiences-555496c3f3ca-->
 			<CusCard>
 				<template #body>
 					<h3 class="mb-7">{{ $t("Trip Information") }}</h3>
@@ -27,7 +47,7 @@
 								:id="'departure-date-input'"
 								:type="'date'"
 								:label="$t('Departure date')"
-								isRequired
+								required
 								v-model="tripForm.departureDate"
 							/>
 						</div>
