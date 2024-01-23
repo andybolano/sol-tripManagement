@@ -7,15 +7,15 @@ const useTrip = () => {
 	}
 
 	const saveTrip = async (data: Trip): Promise<Trip> => {
-		return await httpClient.post("/trip", data) //TODO add types <>
+		return await httpClient.post("/trips", data) //TODO add types <>
 	}
 
 	const getTripById = async (id: string): Promise<Trip> => {
-		return await httpClient.get(`/trip/${id}`)
+		return await httpClient.get(`/trips/${id}`)
 	}
 
 	const updateTrip = async (id: string, data: Trip): Promise<Trip> => {
-		return await httpClient.patch(`/trip/${id}`, data)
+		return await httpClient.patch(`/trips/${id}`, data)
 	}
 
 	return {
