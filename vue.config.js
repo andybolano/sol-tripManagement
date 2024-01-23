@@ -11,8 +11,7 @@ module.exports = {
 				name: "tripManagement",
 				filename: "remoteEntry.js",
 				remotes: {
-					sharedLibrary:
-						"sharedLibrary@http://localhost:8081/remoteEntry.js",
+					sharedLibrary: `sharedLibrary@${process.env.VUE_APP_REMOTE_SHARED_LIBRARY}/remoteEntry.js`,
 				},
 				exposes: {
 					"./TripList.vue":
