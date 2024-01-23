@@ -61,7 +61,7 @@ export default defineComponent({
 					key: "departureDate",
 				},
 				{
-					title: t("created At"),
+					title: t("Created At"),
 					dataIndex: "createdAt",
 					key: "createdAt",
 				},

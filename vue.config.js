@@ -17,11 +17,21 @@ module.exports = {
 				exposes: {
 					"./TripList.vue":
 						"./src/app/features/trip/views/trip-list/TripList.vue",
+					"./ManageTrip.vue":
+						"./src/app/features/trip/views/manage-trip/ManageTrip.vue",
+					"./i18nModule": "./src/i18n/configI8n.ts",
+					"./RouterTripManagement": "./src/router/index.ts",
 				},
 				shared: {
 					vue: {
 						eager: true,
 						singleton: true,
+						requiredVersion: "3.4.14",
+					},
+					"vue-router": {
+						eager: true,
+						singleton: true,
+						requiredVersion: "4.2.5",
 					},
 				},
 			}),

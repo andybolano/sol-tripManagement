@@ -14,6 +14,14 @@
 			<template #body>
 				<CusTable :columns="columns" :data-source="listTrips">
 					<template #bodyCell="{ column, item }">
+						<template v-if="column.key === 'clientName'">
+							<CusAvatar
+								:name="item.clientName"
+								:staticColor="false"
+								class="mr-4"
+							/>
+							{{ item.clientName }}
+						</template>
 						<template v-if="column.key === 'address'">
 							<div class="address" :title="item.address.name">
 								{{ item.address.name }}

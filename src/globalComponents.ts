@@ -5,6 +5,7 @@ import CusButton from "sharedLibrary/CusButton.vue"
 import CusInput from "sharedLibrary/CusInput.vue"
 import CusHeader from "sharedLibrary/CusHeader.vue"
 import CusTable from "sharedLibrary/CusTable.vue"
+import CusAvatar from "sharedLibrary/CusAvatar.vue"
 
 export default {
 	install(app: App): void {
@@ -14,5 +15,6 @@ export default {
 		app.component("CusInput", CusInput)
 		app.component("CusHeader", CusHeader)
 		app.component("CusTable", CusTable)
+		app.component("CusAvatar", CusAvatar)
 	},
 }

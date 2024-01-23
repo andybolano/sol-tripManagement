@@ -75,7 +75,7 @@
 					</form>
 				</template>
 			</CusCard>
-			<div>
+			<div class="w-full">
 				<CusMap :location="tripForm.address.location" />
 			</div>
 		</div>
