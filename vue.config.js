@@ -4,6 +4,9 @@ module.exports = {
 	publicPath: process.env.VUE_APP_PUBLIC_PATH || "/",
 	devServer: {
 		hot: false,
+		headers: {
+			"Access-Control-Allow-Origin": "*",
+		},
 	},
 	configureWebpack: {
 		plugins: [
