@@ -20,7 +20,7 @@ you should know that this project is using the **microfrontend architecture**, m
 
 Here you can see a small scheme to better understand the architecture of this project.
 
-![Image architecture](./screenshots/Wireframe_trip.png)
+![Image architecture](./screenshots/wireframe_trip.png)
 
 In order to run this project in your local environment you must first follow the [installation instructions](https://github.com/andybolano/sol-shared-library) in the UI sol-shared-library
 
