@@ -16,13 +16,13 @@ In addition to this you can have a list of all trips and the possibility to edit
 ![Screenshot project](./screenshots/screenshot_running.png)
 
 #### Important 📢:
-you should know that this project is using the **microfrontend architecture**, making use of an external project called [sol-shared-library](https://sol-shared-library.netlify.app/) for the construction of your views.
+you should know that this project is using the **microfrontend architecture**, making use of an external project called [UI sol-shared-library](https://sol-shared-library.netlify.app/) for the construction of your views.
 
 Here you can see a small scheme to better understand the architecture of this project.
 
-![Image architecture](/path/to/the/screenshot.png)
+![Image architecture](./screenshots/Wireframe_trip.png)
 
-In order to run this project in your local environment you must first follow the [installation instructions](https://github.com/andybolano/sol-shared-library) in the sol-shared-library
+In order to run this project in your local environment you must first follow the [installation instructions](https://github.com/andybolano/sol-shared-library) in the UI sol-shared-library
 
 ## Technologies
 A list of technologies used within the project:
