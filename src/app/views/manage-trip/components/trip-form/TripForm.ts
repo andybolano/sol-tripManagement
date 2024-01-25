@@ -18,7 +18,7 @@ export default defineComponent({
 		},
 	},
 	setup(props, { emit, expose }: SetupContext) {
-		const tripForm = ref<Trip>({ ...tripEmpty })
+		const tripForm = ref({ ...tripEmpty })
 
 		const rules = {
 			clientName: { required },
@@ -63,9 +63,7 @@ export default defineComponent({
 		watch(
 			() => props.initialData,
 			(value): void => {
-				if (value) {
-					tripForm.value = value
-				}
+				value && Object.assign(tripForm.value, value)
 			}
 		)
 

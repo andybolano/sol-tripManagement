@@ -1,13 +1,24 @@
 import useMap from "@/app/shared/composables/Map"
 import { ItemPlaceSearchList } from "@/app/shared/interfaces/ItemPlaceSearchList"
+import { MapBoxFeature } from "@/app/shared/interfaces/Mapbox"
 import {
 	SetupContext,
 	computed,
 	defineComponent,
-	onMounted,
+	onBeforeUnmount,
 	ref,
 	watch,
 } from "vue"
+
+const mapResponseToPlaces = (features: MapBoxFeature[]) =>
+	features.map((item) => ({
+		id: item.id,
+		name: item.place_name,
+		location: {
+			lng: item.center[0],
+			lat: item.center[1],
+		},
+	}))
 
 export default defineComponent({
 	name: "SearchPlaces",
@@ -42,14 +53,7 @@ export default defineComponent({
 			try {
 				isLoadingPlaces.value = true
 				const response = await getPlaces(val)
-				places.value = response.features.map((item) => ({
-					id: item.id,
-					name: item.place_name,
-					location: {
-						lng: item.center[0],
-						lat: item.center[1],
-					},
-				}))
+				places.value = mapResponseToPlaces(response.features)
 			} catch (err) {
 				console.log(err)
 			} finally {
@@ -61,10 +65,16 @@ export default defineComponent({
 			emit("placeSelected", place)
 		}
 
+		onBeforeUnmount(() => {
+			clearTimeout(debounceTimeout.value)
+		})
+
 		watch(
 			() => props.placeName,
-			(value): void => {
-				searchTerm.value = value || ""
+			(value, oldValue): void => {
+				if (!oldValue) {
+					searchTerm.value = value || ""
+				}
 			}
 		)
 
