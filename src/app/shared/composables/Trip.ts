@@ -1,21 +1,22 @@
-import { httpClient } from "sharedLibrary/apiClient"
+import { httpClientLocal } from "@/remotes-config/shared-library/api-client"
+
 import type { Trip } from "../interfaces/Trip"
 
 const useTrip = () => {
 	const getTrips = async (): Promise<Trip[]> => {
-		return await httpClient.get("/trips") //TODO add types <>
+		return await httpClientLocal.get<Trip[]>("/trips")
 	}
 
 	const saveTrip = async (data: Trip): Promise<Trip> => {
-		return await httpClient.post("/trips", data) //TODO add types <>
+		return await httpClientLocal.post<Trip, Trip>("/trips", data)
 	}
 
 	const getTripById = async (id: string): Promise<Trip> => {
-		return await httpClient.get(`/trips/${id}`)
+		return await httpClientLocal.get<Trip>(`/trips/${id}`)
 	}
 
 	const updateTrip = async (id: string, data: Trip): Promise<Trip> => {
-		return await httpClient.patch(`/trips/${id}`, data)
+		return await httpClientLocal.patch<Trip, Trip>(`/trips/${id}`, data)
 	}
 
 	return {

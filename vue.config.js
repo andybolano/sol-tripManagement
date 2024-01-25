@@ -17,10 +17,9 @@ module.exports = {
 					sharedLibrary: `sharedLibrary@${process.env.VUE_APP_REMOTE_SHARED_LIBRARY}/remoteEntry.js`,
 				},
 				exposes: {
-					"./TripList.vue":
-						"./src/app/features/trip/views/trip-list/TripList.vue",
+					"./TripList.vue": "./src/app/views/trip-list/TripList.vue",
 					"./ManageTrip.vue":
-						"./src/app/features/trip/views/manage-trip/ManageTrip.vue",
+						"./src/app/views/manage-trip/ManageTrip.vue",
 					"./i18nModule": "./src/i18n/configI8n.ts",
 					"./RouterTripManagement": "./src/router/index.ts",
 				},

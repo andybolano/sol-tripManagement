@@ -1,10 +1,9 @@
-import { httpClientMap } from "sharedLibrary/apiClient"
+import { httpClientMapLocal } from "@/remotes-config/shared-library/api-client"
 import type { MapboxPlaces } from "../interfaces/Mapbox"
 
 const useMap = () => {
-	//TODO: validate why 401
 	const getPlaces = async (address: string): Promise<MapboxPlaces> => {
-		return await httpClientMap.get(
+		return await httpClientMapLocal.get(
 			`mapbox.places/${address}.json?access_token=${process.env.VUE_APP_MAPBOX_ACCESS_TOKEN}`
 		)
 	}

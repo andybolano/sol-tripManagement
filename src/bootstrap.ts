@@ -2,9 +2,9 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import router from "./router"
 import i18n from "./i18n/configI8n"
-import "sharedLibrary/mainStyle"
-import globalComponents from "./globalComponents"
-import filters from "sharedLibrary/filters"
+import "./remotes-config/shared-library/style"
+import filters from "./remotes-config/shared-library/filters"
+import { globalComponents } from "./globalComponents"
 
 const app = createApp(App)
 

@@ -3,8 +3,8 @@ import useTrip from "@/app/shared/composables/Trip"
 import type { Trip } from "@/app/shared/interfaces/Trip"
 import { defineComponent, onMounted, ref } from "vue"
 import { useRouter } from "vue-router"
-import { useLoading } from "sharedLibrary/useLoading"
-import { toastMessage } from "@/app/shared/utils/toastMessages"
+import { toastMessage } from "@/remotes-config/shared-library/components"
+import { useLoading } from "@/remotes-config/shared-library/composables"
 
 export default defineComponent({
 	name: "TripList",

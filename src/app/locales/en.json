@@ -16,5 +16,9 @@
     "Results": "Results",
     "Trip List": "Trip List",
     "Create New": "Create New",
-    "Back": "Back"
+    "Back": "Back",
+    "Edit Trip": "Edit Trip",
+    "Save Changes": "Save Changes",
+    "Trip successfully created": "Trip successfully created",
+    "Trip successfully updated": "Trip successfully updated"
 }
