@@ -3,7 +3,7 @@ import type { MapboxPlaces } from "../interfaces/Mapbox"
 
 const useMap = () => {
 	const getPlaces = async (address: string): Promise<MapboxPlaces> => {
-		return await httpClientMapLocal.get(
+		return await httpClientMapLocal.get<MapboxPlaces>(
 			`mapbox.places/${address}.json?access_token=${process.env.VUE_APP_MAPBOX_ACCESS_TOKEN}`
 		)
 	}

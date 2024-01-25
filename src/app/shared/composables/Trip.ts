@@ -1,9 +1,24 @@
 import { httpClientLocal } from "@/remotes-config/shared-library/api-client"
-
 import type { Trip } from "../interfaces/Trip"
+import { toastMessage } from "@/remotes-config/shared-library/components"
+import { useLoading } from "@/remotes-config/shared-library/composables"
 
 const useTrip = () => {
+	const { startLoading, stopLoading } = useLoading()
+
 	const getTrips = async (): Promise<Trip[]> => {
+		try {
+			startLoading()
+			return await apiGetTrips()
+		} catch (err) {
+			toastMessage.error(err)
+			return []
+		} finally {
+			stopLoading()
+		}
+	}
+
+	const apiGetTrips = async (): Promise<Trip[]> => {
 		return await httpClientLocal.get<Trip[]>("/trips")
 	}
 
