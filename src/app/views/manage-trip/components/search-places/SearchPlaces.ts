@@ -1,51 +1,40 @@
 import useMap from "@/app/shared/composables/Map"
 import { ItemPlaceSearchList } from "@/app/shared/interfaces/ItemPlaceSearchList"
-import { MapBoxFeature } from "@/app/shared/interfaces/Mapbox"
 import {
 	SetupContext,
 	computed,
 	defineComponent,
 	onBeforeUnmount,
 	ref,
-	watch,
 } from "vue"
+import { mapResponseToPlaces } from "./const/mapResponseToPlaces"
 
-const mapResponseToPlaces = (features: MapBoxFeature[]) =>
-	features.map((item) => ({
-		id: item.id,
-		name: item.place_name,
-		location: {
-			lng: item.center[0],
-			lat: item.center[1],
-		},
-	}))
+const delaySearch = 500
 
 export default defineComponent({
 	name: "SearchPlaces",
 	props: {
-		placeName: {
+		modelValue: {
 			type: String,
-			required: false,
+			required: true,
 		},
 	},
 	setup(props, { emit }: SetupContext) {
 		const isLoadingPlaces = ref(false)
 		const debounceTimeout = ref()
-		const debouncedValue = ref("")
 		const { getPlaces } = useMap()
 		const places = ref<ItemPlaceSearchList[]>([])
 
 		const searchTerm = computed({
 			get() {
-				return debouncedValue.value
+				return props.modelValue
 			},
-			set(val: string) {
+			set(value: string) {
 				if (debounceTimeout.value) clearTimeout(debounceTimeout.value)
-
 				debounceTimeout.value = setTimeout(() => {
-					debouncedValue.value = val
-					getPlacesByAddress(val)
-				}, 500)
+					getPlacesByAddress(value)
+					emit("update:modelValue", value)
+				}, delaySearch)
 			},
 		})
 
@@ -62,21 +51,13 @@ export default defineComponent({
 		}
 
 		const handlePlaceSelected = (place: ItemPlaceSearchList): void => {
+			places.value = []
 			emit("placeSelected", place)
 		}
 
 		onBeforeUnmount(() => {
 			clearTimeout(debounceTimeout.value)
 		})
-
-		watch(
-			() => props.placeName,
-			(value, oldValue): void => {
-				if (!oldValue) {
-					searchTerm.value = value || ""
-				}
-			}
-		)
 
 		return {
 			handlePlaceSelected,

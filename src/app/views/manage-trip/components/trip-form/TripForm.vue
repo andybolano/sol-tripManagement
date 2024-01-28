@@ -20,7 +20,7 @@
 		</div>
 		<div class="form__group">
 			<SearchPlaces
-				:placeName="tripForm.address.name"
+				v-model="tripForm.address.name"
 				@placeSelected="handlePlaceSelected"
 			/>
 		</div>

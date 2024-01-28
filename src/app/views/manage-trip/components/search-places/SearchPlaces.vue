@@ -6,8 +6,14 @@
 		:isLoadingResults="isLoadingPlaces"
 		:itemsResults="places"
 		required
+		@changeOption="handlePlaceSelected"
 		v-model="searchTerm"
-		@itemSelected="handlePlaceSelected"
-	/>
+	>
+		<template #option="{ option }">
+			<p>
+				{{ option.name }}
+			</p>
+		</template>
+	</CusSearch>
 </template>
 <script lang="ts" src="./SearchPlaces.ts"></script>
