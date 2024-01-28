@@ -39,7 +39,6 @@
 				</template>
 			</CusCard>
 			<div class="w-full">
-				<!--TODO add error boundary https://medium.com/@alpercitak/enhancing-vue-js-performance-strategies-for-optimal-user-experiences-555496c3f3ca-->
 				<CusMap :location="trip.address.location" />
 			</div>
 		</div>

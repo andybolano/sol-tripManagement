@@ -1,18 +1,19 @@
 <template>
 	<CusSearch
 		:id="'search-address-input'"
-		:label="$t('Destination address')"
+		:labelText="$t('Destination address')"
 		:placeholder="$t('Search address')"
 		:isLoadingResults="isLoadingPlaces"
 		:itemsResults="places"
-		required
+		isRequired
 		@changeOption="handlePlaceSelected"
 		v-model="searchTerm"
 	>
 		<template #option="{ option }">
-			<p>
-				{{ option.name }}
-			</p>
+			<div class="flex align-center">
+				<i class="icon-map-pin" />
+				<p class="ml-4">{{ option.name }}</p>
+			</div>
 		</template>
 	</CusSearch>
 </template>

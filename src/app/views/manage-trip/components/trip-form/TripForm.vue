@@ -3,9 +3,9 @@
 		<div class="form__group">
 			<CusInput
 				:id="'client-name-input'"
-				:label="$t('Client Name')"
+				:labelText="$t('Client Name')"
 				:placeholder="$t('Insert name')"
-				required
+				isRequired
 				v-model="tripForm.clientName"
 			/>
 		</div>
@@ -13,8 +13,8 @@
 			<CusInput
 				:id="'departure-date-input'"
 				:type="'date'"
-				:label="$t('Departure date')"
-				required
+				:labelText="$t('Departure date')"
+				isRequired
 				v-model="tripForm.departureDate"
 			/>
 		</div>
@@ -27,7 +27,7 @@
 		<div class="form__group">
 			<CusInput
 				:id="'cargo-details-input'"
-				:label="$t('Cargo details')"
+				:labelText="$t('Cargo details')"
 				:placeholder="$t('Insert details')"
 				type="textarea"
 				v-model="tripForm.cargoDetails"
