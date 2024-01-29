@@ -7,7 +7,7 @@ import {
 	onBeforeUnmount,
 	ref,
 } from "vue"
-import { mapResponseToPlaces } from "./const/mapResponseToPlaces"
+import PlacesModel from "@/app/shared/clasess/PlacesModel"
 
 const delaySearch = 500
 
@@ -42,7 +42,8 @@ export default defineComponent({
 			try {
 				isLoadingPlaces.value = true
 				const response = await getPlaces(val)
-				places.value = mapResponseToPlaces(response.features)
+				const placesModel = new PlacesModel(response)
+				places.value = placesModel.getFeatureSearchList()
 			} catch (err) {
 				console.log(err)
 			} finally {
