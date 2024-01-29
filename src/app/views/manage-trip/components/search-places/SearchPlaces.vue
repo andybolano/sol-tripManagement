@@ -4,7 +4,7 @@
 		:labelText="$t('Destination address')"
 		:placeholder="$t('Search address')"
 		:isLoadingResults="isLoadingPlaces"
-		:itemsResults="places"
+		:itemsResults="placesSearchList"
 		isRequired
 		@changeOption="handlePlaceSelected"
 		v-model="searchTerm"

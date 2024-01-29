@@ -24,4 +24,8 @@ export default class PlacesModel implements MapboxPlaces {
 			},
 		}))
 	}
+
+	public getCountPlaces(): number {
+		return this.features.length
+	}
 }

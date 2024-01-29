@@ -22,8 +22,8 @@ export default defineComponent({
 	setup(props, { emit }: SetupContext) {
 		const isLoadingPlaces = ref(false)
 		const debounceTimeout = ref()
-		const { getPlaces } = useMap()
-		const places = ref<ItemPlaceSearchList[]>([])
+		const { getPlaces, getPlacesSearchList } = useMap()
+		const placesSearchList = ref<ItemPlaceSearchList[]>([])
 
 		const searchTerm = computed({
 			get() {
@@ -41,9 +41,8 @@ export default defineComponent({
 		const getPlacesByAddress = async (val: string): Promise<void> => {
 			try {
 				isLoadingPlaces.value = true
-				const response = await getPlaces(val)
-				const placesModel = new PlacesModel(response)
-				places.value = placesModel.getFeatureSearchList()
+				await getPlaces(val)
+				placesSearchList.value = getPlacesSearchList()
 			} catch (err) {
 				console.log(err)
 			} finally {
@@ -52,7 +51,7 @@ export default defineComponent({
 		}
 
 		const handlePlaceSelected = (place: ItemPlaceSearchList): void => {
-			places.value = []
+			placesSearchList.value = []
 			emit("placeSelected", place)
 		}
 
@@ -63,7 +62,7 @@ export default defineComponent({
 		return {
 			handlePlaceSelected,
 			searchTerm,
-			places,
+			placesSearchList,
 			isLoadingPlaces,
 		}
 	},
