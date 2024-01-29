@@ -7,7 +7,6 @@ import {
 	onBeforeUnmount,
 	ref,
 } from "vue"
-import PlacesModel from "@/app/shared/clasess/PlacesModel"
 
 const delaySearch = 500
 

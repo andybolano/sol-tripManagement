@@ -19,6 +19,7 @@
 			/>
 		</div>
 		<div class="form__group">
+			<h1>{{ tripForm.address.name }}</h1>
 			<SearchPlaces
 				v-model="tripForm.address.name"
 				@placeSelected="handlePlaceSelected"

@@ -22,7 +22,7 @@ const useTrip = () => {
 		return await httpClientLocal.get<Trip[]>("/trips")
 	}
 
-	const saveTrip = async (data: Trip): Promise<Trip> => {
+	const createNewTrip = async (data: Trip): Promise<Trip> => {
 		return await httpClientLocal.post<Trip, Trip>("/trips", data)
 	}
 
@@ -36,7 +36,7 @@ const useTrip = () => {
 
 	return {
 		getTrips,
-		saveTrip,
+		createNewTrip,
 		getTripById,
 		updateTrip,
 	}

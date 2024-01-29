@@ -1,10 +1,11 @@
-import { SetupContext, defineComponent, ref, watch } from "vue"
+import { SetupContext, defineComponent, ref, watch, watchEffect } from "vue"
 import { tripEmpty } from "../../const/tripEmpty"
 import { Trip } from "@/app/shared/interfaces/Trip"
 import useVuelidate from "@vuelidate/core"
 import { required } from "@vuelidate/validators"
 import { ItemPlaceSearchList } from "@/app/shared/interfaces/ItemPlaceSearchList"
 import SearchPlaces from "../search-places/SearchPlaces.vue"
+import { EmitTripFormData } from "./interfaces/EmitTripFormData"
 
 export default defineComponent({
 	name: "TripForm",
@@ -19,6 +20,10 @@ export default defineComponent({
 	},
 	setup(props, { emit, expose }: SetupContext) {
 		const tripForm = ref({ ...tripEmpty })
+		watchEffect(() => {
+			props.initialData &&
+				Object.assign(tripForm.value, props.initialData)
+		})
 
 		const rules = {
 			clientName: { required },
@@ -33,23 +38,6 @@ export default defineComponent({
 		}
 
 		const validate$ = useVuelidate(rules, tripForm)
-
-		const handlePlaceSelected = (place: ItemPlaceSearchList): void => {
-			tripForm.value.address = place
-		}
-
-		const resetForm = (): void => {
-			tripForm.value = { ...tripEmpty }
-			validate$.value.$reset()
-		}
-
-		const handleSubmit = (): void => {
-			emit("formData", {
-				data: tripForm.value,
-				isValid: !validate$.value.$invalid,
-			})
-		}
-
 		watch(
 			() => validate$.value,
 			(newValue, oldValue): void => {
@@ -60,13 +48,22 @@ export default defineComponent({
 			}
 		)
 
-		watch(
-			() => props.initialData,
-			(value): void => {
-				value && Object.assign(tripForm.value, value)
-			}
-		)
+		const handleSubmit = (): void => {
+			emit("formData", {
+				formValue: tripForm.value,
+				isValid: !validate$.value.$invalid,
+			} as EmitTripFormData)
+		}
 
+		const handlePlaceSelected = (place: ItemPlaceSearchList): void => {
+			tripForm.value.address = place
+		}
+
+		const resetForm = (): void => {
+			tripForm.value = { ...tripEmpty }
+			tripForm.value.address.name = ""
+			validate$.value.$reset()
+		}
 		expose({
 			resetForm,
 		})

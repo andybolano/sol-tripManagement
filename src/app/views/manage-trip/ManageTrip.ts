@@ -7,6 +7,69 @@ import { toastMessage } from "@/remotes-config/shared-library/components"
 import { useLoading } from "@/remotes-config/shared-library/composables"
 import { tripEmpty } from "./const/tripEmpty"
 import TripForm from "./components/trip-form/TripForm.vue"
+import { EmitTripFormData } from "./components/trip-form/interfaces/EmitTripFormData"
+
+function useEditTrip() {
+	const { t } = useI18n()
+	const { getTripById, updateTrip } = useTrip()
+	const { startLoading, stopLoading } = useLoading()
+	const route = useRoute()
+	const idTrip: string = route.params.id as string
+	const isEditTrip: Ref<boolean> = computed(() => !!idTrip)
+
+	const getTripToEdit = async (idTrip: string): Promise<Trip | void> => {
+		try {
+			startLoading()
+			const tripResponse: Trip = await getTripById(idTrip)
+			return tripResponse
+		} catch (err) {
+			toastMessage.error(err)
+		} finally {
+			stopLoading()
+		}
+	}
+
+	const saveChanges = async (trip: Trip): Promise<void> => {
+		try {
+			startLoading()
+			await updateTrip(trip.id, trip)
+			toastMessage.success(t("Trip successfully updated"))
+		} catch (err) {
+			toastMessage.error(err)
+		} finally {
+			stopLoading()
+		}
+	}
+
+	return {
+		getTripToEdit,
+		isEditTrip,
+		saveChanges,
+		idTrip,
+	}
+}
+
+function useCreateTrip() {
+	const { t } = useI18n()
+	const { startLoading, stopLoading } = useLoading()
+	const { createNewTrip } = useTrip()
+
+	const createTrip = async (trip: Trip): Promise<void> => {
+		try {
+			startLoading()
+			await createNewTrip(trip)
+			toastMessage.success(t("Trip successfully created"))
+		} catch (err) {
+			toastMessage.error(err)
+		} finally {
+			stopLoading()
+		}
+	}
+
+	return {
+		createTrip,
+	}
+}
 
 export default defineComponent({
 	name: "ManageTrip",
@@ -15,67 +78,28 @@ export default defineComponent({
 	},
 	setup() {
 		const { t } = useI18n()
-		const { saveTrip, getTripById, updateTrip } = useTrip()
-		const { startLoading, stopLoading } = useLoading()
-		const route = useRoute()
 		const router = useRouter()
+		const trip = ref<Trip>({ ...tripEmpty })
 		const tripFormRef = ref()
 		const isFormValid = ref(false)
-		const isEditTrip: Ref<boolean> = computed(() => !!route.params.id)
-		const trip = ref<Trip>({ ...tripEmpty })
+
+		const { isEditTrip, getTripToEdit, saveChanges, idTrip } = useEditTrip()
+		const { createTrip } = useCreateTrip()
+
+		const createNewTrip = async () => {
+			await createTrip(trip.value)
+			tripFormRef.value.resetForm()
+		}
+
 		const titlePage = computed(() =>
 			isEditTrip.value
 				? `${t("Edit Trip")} : ${trip.value.id}`
 				: t("Create new trip")
 		)
-		const idTrip: string = route.params.id as string
 
-		const createTrip = async (): Promise<void> => {
-			try {
-				startLoading()
-				await saveTrip(trip.value)
-				toastMessage.success(t("Trip successfully created"))
-				tripFormRef.value.resetForm()
-			} catch (err) {
-				toastMessage.error(err)
-			} finally {
-				stopLoading()
-			}
-		}
-
-		const saveChanges = async (): Promise<void> => {
-			try {
-				startLoading()
-				await updateTrip(trip.value.id, trip.value)
-				toastMessage.success(t("Trip successfully updated"))
-			} catch (err) {
-				toastMessage.error(err)
-			} finally {
-				stopLoading()
-			}
-		}
-
-		const getTrip = async (idTrip: string): Promise<void> => {
-			try {
-				startLoading()
-				const tripResponse: Trip = await getTripById(idTrip)
-				trip.value = tripResponse
-			} catch (err) {
-				toastMessage.error(err)
-			} finally {
-				stopLoading()
-			}
-		}
-
-		const setDataForm = ({
-			data,
-			isValid,
-		}: {
-			data: Trip
-			isValid: boolean
-		}): void => {
-			trip.value = data
-			isFormValid.value = isValid
+		const uploadFormInformation = (data: EmitTripFormData): void => {
+			trip.value = data.formValue
+			isFormValid.value = data.isValid
 		}
 
 		const cancel = (): void => {
@@ -83,20 +107,20 @@ export default defineComponent({
 			router.back()
 		}
 
-		onMounted(() => {
+		onMounted(async () => {
 			if (isEditTrip.value) {
-				getTrip(idTrip)
+				trip.value = (await getTripToEdit(idTrip)) || { ...tripEmpty }
 			}
 		})
 
 		return {
-			createTrip,
+			createNewTrip,
 			isEditTrip,
 			saveChanges,
 			titlePage,
 			cancel,
 			tripFormRef,
-			setDataForm,
+			uploadFormInformation,
 			trip,
 			isFormValid,
 		}

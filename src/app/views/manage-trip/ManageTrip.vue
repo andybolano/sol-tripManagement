@@ -16,13 +16,13 @@
 				v-if="isEditTrip"
 				:value="$t('Save Changes')"
 				:disabled="!isFormValid"
-				@click="saveChanges()"
+				@click="saveChanges(trip)"
 			/>
 			<CusButton
 				v-else
 				:value="$t('Create')"
 				:disabled="!isFormValid"
-				@click="createTrip()"
+				@click="createNewTrip"
 			/>
 		</template>
 	</CusHeader>
@@ -34,7 +34,7 @@
 					<TripForm
 						ref="tripFormRef"
 						:initialData="trip"
-						@formData="setDataForm"
+						@formData="uploadFormInformation"
 					/>
 				</template>
 			</CusCard>
